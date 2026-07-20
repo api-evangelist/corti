@@ -1,0 +1,49 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/authentication/overview
+docs: https://docs.corti.ai/authentication/overview
+description: >-
+  Corti uses OAuth 2.0 client credentials (Keycloak / OpenID Connect) for
+  server-to-server access to the Corti API. Clients exchange a client_id and
+  client_secret at the realm token endpoint for a short-lived (5 minute) bearer
+  access token, then call the API with an Authorization: Bearer header plus a
+  required Tenant-Name header identifying the tenant context (default "base").
+  Limited-scope tokens (scope "openid transcribe" / "openid streams") can be
+  minted for browser-side real-time streaming. The Embedded Assistant uses a
+  separate token flow. Corti recommends client credentials over static API keys
+  for short blast radius, scope granularity, and enterprise IdP/tenancy integration.
+summary:
+  types: [oauth2, openIdConnect]
+  oauth2_flows: [clientCredentials, authorizationCode]
+  token_ttl_seconds: 300
+  required_headers: [Authorization, Tenant-Name]
+  identity_provider: Keycloak (OpenID Connect)
+schemes:
+- name: CortiAuth
+  type: oauth2
+  description: OAuth 2.0 client credentials via Corti Auth (Keycloak realm)
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.eu.corti.app/realms/{tenant}/protocol/openid-connect/token
+    scopes_count: 57
+  token_endpoint_auth_methods: [client_secret_basic, client_secret_post, client_secret_jwt, private_key_jwt, tls_client_auth]
+  sources: [docs, well-known/corti-openid-configuration.json]
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Short-lived JWT access token presented on each API request
+  sources: [docs]
+environments:
+- name: eu
+  auth_server: https://auth.eu.corti.app
+  api_base: https://api.eu.corti.app/v2
+- name: us
+  auth_server: https://auth.us.corti.app
+  api_base: https://api.us.corti.app/v2
+- name: beta-eu
+  auth_server: https://auth.beta-eu.corti.app
+  api_base: https://api.beta-eu.corti.app/v2
+notes:
+- The Embedded Assistant authenticates differently; see https://docs.corti.ai/assistant/authentication
+- Agents (A2A) MCP calls support authorizationType none/inherit; inherit reuses the caller bearer token.
