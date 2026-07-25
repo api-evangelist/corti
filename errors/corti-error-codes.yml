@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/api-reference/errors
+description: >-
+  Corti uses standard HTTP status codes; 4xx indicate a request problem, 5xx a
+  Corti-side problem. REST error bodies are JSON; 401s on the Corti API are
+  returned in the WWW-Authenticate response header (no body). The JS/.NET SDKs
+  raise typed error classes. Real-time WebSocket (transcribe/stream) failures are
+  surfaced as CONFIG_* status codes each carrying a human-readable reason.
+format: http-status + json (not rfc9457)
+envelope:
+  rest: JSON body for most errors; 401 details in WWW-Authenticate header
+  websocket: server status code (e.g. CONFIG_DENIED) with a reason field
+sdk_error_classes:
+- {class: CortiError, thrown_when: API returned a non-2xx HTTP response, attributes: [message, statusCode, body, rawResponse]}
+- {class: CortiSDKError, thrown_when: SDK infrastructure error, attributes: [message, code, cause]}
+- {class: ParseError, thrown_when: Input validation failed, attributes: [message, errors]}
+- {class: JsonError, thrown_when: Response body not parseable as JSON, attributes: [message, errors]}
+http_errors:
+- {status: 400, code: bad_request, title: Bad Request, remediation: Verify request body/query params are well-formed with all required fields}
+- {status: 401, code: invalid_client, title: Unauthorized, remediation: Verify client_id is correct}
+- {status: 401, code: unauthorized_client, title: Unauthorized, remediation: Verify client_secret is correct}
+- {status: 401, code: invalid_token, title: Unauthorized, remediation: Re-authenticate for a fresh token (tokens expire after 5 minutes)}
+- {status: 403, title: Forbidden, remediation: Resource belongs to a different client; verify the resource was created by the authenticated client}
+- {status: 404, title: Not Found, remediation: Verify the resource id and parent id; cross-client resources also return 404 by design}
+- {status: 429, title: Too Many Requests, remediation: SDK auto-retries with exponential backoff (default 2); reduce frequency or contact support}
+- {status: 500, title: Internal Server Error, remediation: Retry; if persistent contact help@corti.ai}
+- {status: 503, title: Service Unavailable, remediation: Retry with exponential backoff; monitor https://status.corti.ai}
+websocket_errors:
+- {code: CONFIG_DENIED, meaning: A config message was sent but is invalid, reason_field: true}
+- {code: CONFIG_MISSING, meaning: A non-config frame arrived before a valid config message, reason_field: true}
+- {code: CONFIG_TIMEOUT, meaning: Configuration handshake timed out, reason_field: true}

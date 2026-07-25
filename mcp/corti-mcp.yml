@@ -1,0 +1,25 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: https://docs.corti.ai/llms.txt
+description: >-
+  Corti does not publish a hosted/remote MCP server for its own API; instead the
+  Corti Agentic Framework acts as an MCP *client*, registering and calling
+  external MCP servers (streamable_http transport, authorizationType none|inherit)
+  as "experts". The tool list below is a CANDIDATE derived from Corti's documented
+  API operations to illustrate an MCP surface an integrator could expose.
+server:
+  name: corti
+  transport: http
+  note: candidate only — not an official Corti-hosted MCP endpoint
+related:
+  agentic_mcp_authentication: https://docs.corti.ai/agentic/mcp-authentication
+  a2a_protocol: https://docs.corti.ai/agentic/a2a-protocol
+tools:
+- {name: predict_codes, description: Predict ICD-10/CPT/OPCS-4/etc. medical codes from clinical text, source: https://docs.corti.ai/api-reference/codes/predict-codes}
+- {name: generate_document, description: Generate a clinical document from an interaction, source: https://docs.corti.ai/api-reference/documents-classic/generate-document}
+- {name: generate_structured_document, description: Generate a structured (guided) document from a template, source: https://docs.corti.ai/api-reference/guided-documents/generate-a-structured-document}
+- {name: extract_facts, description: Extract facts from provided text without storing them, source: https://docs.corti.ai/api-reference/facts/extract-facts}
+- {name: list_facts, description: Retrieve facts for a given interaction, source: https://docs.corti.ai/api-reference/facts/list-facts}
+- {name: send_message_to_agent, description: Send a message to a Corti agent to start or continue a task, source: https://docs.corti.ai/agentic/agents/send-message-to-agent}
+- {name: list_agents, description: List agents callable by the Corti Agent Framework, source: https://docs.corti.ai/agentic/agents/list-agents}

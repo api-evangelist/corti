@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/release-notes/overview
+description: >-
+  Corti maintains dated release notes across its platform, split by product line,
+  plus a formal Change Policy and a pre-announcement page for upcoming breaking
+  changes. The live release-notes pages are the source of truth; only the
+  structure and entry points are captured here.
+scheme: product-segmented release notes
+current_version: v2
+sources:
+  overview: https://docs.corti.ai/release-notes/overview
+  change_policy: https://docs.corti.ai/release-notes/change-policy/
+  upcoming_changes: https://docs.corti.ai/release-notes/changelog-upcoming/
+streams:
+- {product: Speech to Text, url: https://docs.corti.ai/release-notes/stt/}
+- {product: Text Generation, url: https://docs.corti.ai/release-notes/textgen/}
+- {product: Corti Assistant, url: https://docs.corti.ai/release-notes/corti-assistant}

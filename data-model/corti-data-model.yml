@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/api-reference
+description: >-
+  Entity-relationship graph for the Corti API, reconstructed from the documented
+  resource model (the OpenAPI YAML is served only through the Mintlify SPA and was
+  not machine-fetchable). The Interaction is the central aggregate; recordings,
+  transcripts, documents, facts, and codes are created within an interaction. The
+  Agentic Framework adds Agent / Context (thread) / Task / Message entities.
+entities:
+- {name: Interaction, description: Central encounter/session aggregate that owns recordings, transcripts, documents, and facts}
+- {name: Recording, description: Audio recording attached to an interaction}
+- {name: Transcript, description: Speech-to-text transcript produced from a recording/stream}
+- {name: Document, description: Generated clinical document (classic text generation)}
+- {name: GuidedDocument, description: Structured document generated from a template/sections}
+- {name: Template, description: Document template (and guided template sections)}
+- {name: Fact, description: Structured fact extracted from an interaction, organized into fact groups}
+- {name: Code, description: Predicted medical code (ICD-10/CPT/OPCS-4/CCAM/OPS, etc.)}
+- {name: Agent, description: Configurable agent in the Agentic Framework}
+- {name: Context, description: Conversation thread/context for an agent}
+- {name: Task, description: Unit of work an agent executes within a context}
+- {name: Customer, description: Admin API tenant/customer}
+- {name: User, description: Admin API user within a customer}
+relationships:
+- {from: Recording, type: belongs_to, to: Interaction, via: interactionId}
+- {from: Transcript, type: belongs_to, to: Interaction, via: interactionId}
+- {from: Document, type: belongs_to, to: Interaction, via: interactionId}
+- {from: Fact, type: belongs_to, to: Interaction, via: interactionId}
+- {from: Interaction, type: has_many, to: Recording, via: recordings}
+- {from: Interaction, type: has_many, to: Transcript, via: transcripts}
+- {from: Interaction, type: has_many, to: Document, via: documents}
+- {from: Interaction, type: has_many, to: Fact, via: facts}
+- {from: GuidedDocument, type: belongs_to, to: Template, via: templateRef}
+- {from: Context, type: belongs_to, to: Agent, via: agentId}
+- {from: Task, type: belongs_to, to: Context, via: contextId}
+- {from: User, type: belongs_to, to: Customer, via: customerId}

@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/release-notes/overview
+description: >-
+  Corti versions its API in the URI path (v2, base https://api.{env}.corti.app/v2).
+  A published Change Policy describes how API/model changes are rolled out and an
+  Upcoming Changes page pre-announces breaking changes. Release notes are
+  maintained per product (Speech to Text, Text Generation, Corti Assistant). A
+  public roadmap and a public status page are available.
+versioning:
+  scheme: uri-path
+  current: v2
+  docs: https://docs.corti.ai/get_started/welcome
+deprecation:
+  policy_url: https://docs.corti.ai/release-notes/change-policy/
+  upcoming_changes_url: https://docs.corti.ai/release-notes/changelog-upcoming/
+status_page: https://status.corti.ai
+roadmap: https://docs.corti.ai/about/roadmap
+release_notes:
+- https://docs.corti.ai/release-notes/stt/
+- https://docs.corti.ai/release-notes/textgen/
+- https://docs.corti.ai/release-notes/corti-assistant

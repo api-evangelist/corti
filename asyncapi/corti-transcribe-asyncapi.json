@@ -1,0 +1,544 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "Real-Time Stateless Dictation",
+    "version": "1.0.0",
+    "description": "Real-time, bidirectional communication with the Corti system for stateless speech-to-text. Clients can send and receive structured data, including transcripts and detected commands."
+  },
+  "servers": {
+    "beta-eu": {
+      "host": "api.beta-eu.corti.app",
+      "protocol": "wss",
+      "description": "Beta European environment - Real-time WebSocket endpoint for transcribe."
+    },
+    "eu": {
+      "host": "api.eu.corti.app",
+      "protocol": "wss",
+      "description": "European environment - Real-time WebSocket endpoint for transcribe."
+    },
+    "us": {
+      "host": "api.us.corti.app",
+      "protocol": "wss",
+      "description": "US environment - Real-time WebSocket endpoint for transcribe."
+    }
+  },
+  "channels": {
+    "transcribe": {
+      "address": "/audio-bridge/v2/transcribe?tenant-name={tenant-name}&token={token}",
+      "servers": [
+        {"$ref": "#/servers/beta-eu"},
+        {"$ref": "#/servers/eu"},
+        {"$ref": "#/servers/us"}
+      ],
+      "parameters": {
+        "tenant-name": {
+          "$ref": "#/components/parameters/tenant-name"
+        },
+        "token": {
+          "$ref": "#/components/parameters/token"
+        }
+      },
+      "bindings": {
+        "ws": {
+          "query": {
+            "type": "object",
+            "properties": {
+              "tenant-name": {
+                "$ref": "#/components/parameters/tenant-name"
+              },
+              "token": {
+                "$ref": "#/components/parameters/token"
+              }
+            },
+            "required": ["tenant-name", "token"]
+          }
+        }
+      },
+      "messages": {
+        "configuration": {
+          "$ref": "#/components/messages/configuration"
+        },
+        "configStatus": {
+          "$ref": "#/components/messages/configStatus"
+        },
+        "audio": {
+          "$ref": "#/components/messages/audio"
+        },
+        "end": {
+          "$ref": "#/components/messages/end"
+        },
+        "usage": {
+          "$ref": "#/components/messages/usage"
+        },
+        "ended": {
+          "$ref": "#/components/messages/ended"
+        },
+        "error": {
+          "$ref": "#/components/messages/error"
+        },
+        "transcript": {
+          "$ref": "#/components/messages/transcript"
+        },
+        "command": {
+          "$ref": "#/components/messages/command"
+        }
+      }
+    }
+  },
+  "operations": {
+    "sendConfiguration": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/configuration"
+        }
+      ]
+    },
+    "receiveConfigStatus": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/configStatus"
+        }
+      ]
+    },
+    "sendAudio": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/audio"
+        }
+      ]
+    },
+    "sendEnd": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/end"
+        }
+      ]
+    },
+    "receiveUsage": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/usage"
+        }
+      ]
+    },
+    "receiveEnded": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/ended"
+        }
+      ]
+    },
+    "receiveError": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/error"
+        }
+      ]
+    },
+    "receiveTranscript": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/transcript"
+        }
+      ]
+    },
+    "receiveCommand": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/transcribe"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/transcribe/messages/command"
+        }
+      ]
+    }
+  },
+  "components": {
+    "parameters": {
+      "tenant-name": {
+        "description": "Specifies the tenant context."
+      },
+      "token": {
+        "description": "Bearer access token for authentication."
+      }
+    },
+    "messages": {
+      "configuration": {
+        "title": "Configuration Message",
+        "description": "Configuration for transcribe endpoint. Must be sent within 10 seconds of opening the WebSocket.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeConfigMessage"
+        }
+      },
+      "configStatus": {
+        "title": "Configuration Status Message",
+        "description": "Server response to configuration message indicating acceptance or rejection.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeConfigStatusMessage"
+        }
+      },
+      "audio": {
+        "title": "Audio Data",
+        "description": "Raw binary audio data sent from client to server. Recommended: webm/opus format, max 64000 bytes per chunk, ~500ms per chunk.",
+        "contentType": "application/octet-stream",
+        "payload": {
+          "type": "string",
+          "format": "binary"
+        }
+      },
+      "end": {
+        "title": "End Stream Message",
+        "description": "Client message to end the stream.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeEndMessage"
+        }
+      },
+      "usage": {
+        "title": "Usage Information Message",
+        "description": "Server message with usage/credits information.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeUsageMessage"
+        }
+      },
+      "ended": {
+        "title": "Stream Ended Message",
+        "description": "Server message indicating the stream has ended.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeEndedMessage"
+        }
+      },
+      "error": {
+        "title": "Error Message",
+        "description": "Server message indicating an error occurred.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeErrorMessage"
+        }
+      },
+      "transcript": {
+        "title": "Transcript Message",
+        "description": "Transcript message sent from server to client.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeTranscriptMessage"
+        }
+      },
+      "command": {
+        "title": "Command Message",
+        "description": "Command message sent from server to client when a registered command is detected.",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/TranscribeCommandMessage"
+        }
+      }
+    },
+    "schemas": {
+      "TranscribeSupportedLanguage": {
+        "type": "string",
+        "description": "Supported language codes for transcription"
+      },
+      "TranscribeConfig": {
+        "type": "object",
+        "properties": {
+          "primaryLanguage": {
+            "$ref": "#/components/schemas/TranscribeSupportedLanguage",
+            "description": "The locale of the primary spoken language."
+          },
+          "interimResults": {
+            "type": "boolean",
+            "description": "When true, returns interim results for reduced latency"
+          },
+          "spokenPunctuation": {
+            "type": "boolean",
+            "description": "When true, converts spoken punctuation such as 'period' or 'slash' into '.' or '/'"
+          },
+          "automaticPunctuation": {
+            "type": "boolean",
+            "description": "When true, automatically punctuates and capitalizes in the final transcript"
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranscribeCommand"
+            },
+            "description": "Commands that should be registered and detected"
+          }
+        },
+        "required": ["primaryLanguage"]
+      },
+      "TranscribeConfigMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "config"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/TranscribeConfig"
+          }
+        },
+        "required": ["type", "configuration"]
+      },
+      "TranscribeCommand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "To identify the command when it gets detected and returned over the WebSocket"
+          },
+          "phrases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The spoken phrases that should trigger the command"
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranscribeCommandVariable"
+            },
+            "description": "Variables for the command"
+          }
+        },
+        "required": ["id", "phrases"]
+      },
+      "TranscribeCommandVariable": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Variable key identifier"
+          },
+          "type": {
+            "type": "string",
+            "const": "enum",
+            "description": "Variable type"
+          },
+          "enum": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Enum values for the variable"
+          }
+        },
+        "required": ["key", "type", "enum"]
+      },
+      "TranscribeConfigStatusMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "CONFIG_ACCEPTED",
+              "CONFIG_DENIED",
+              "CONFIG_TIMEOUT"
+            ],
+            "description": "Configuration status result"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Optional reason for rejection"
+          },
+          "sessionId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Session identifier returned when configuration is accepted"
+          }
+        },
+        "required": ["type", "sessionId"]
+      },
+      "TranscribeEndMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "end"
+          }
+        },
+        "required": ["type"]
+      },
+      "TranscribeUsageMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "usage"
+          },
+          "credits": {
+            "type": "number",
+            "description": "The amount of credits used for this stream."
+          }
+        },
+        "required": ["type", "credits"]
+      },
+      "TranscribeEndedMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ended"
+          }
+        },
+        "required": ["type"]
+      },
+      "TranscribeErrorMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "error"
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique error identifier"
+              },
+              "title": {
+                "type": "string",
+                "description": "Error title"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              },
+              "details": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "doc": {
+                "type": "string",
+                "description": "Link to documentation"
+              }
+            },
+            "required": ["id", "title", "status", "details", "doc"]
+          }
+        },
+        "required": ["type", "error"]
+      },
+      "TranscribeTranscriptData": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Transcript segment with punctuations applied and command phrases removed"
+          },
+          "rawTranscriptText": {
+            "type": "string",
+            "description": "The raw transcript without spoken punctuation applied and without command phrases removed"
+          },
+          "start": {
+            "type": "number",
+            "description": "Start time of the transcript segment in seconds"
+          },
+          "end": {
+            "type": "number",
+            "description": "End time of the transcript segment in seconds"
+          },
+          "isFinal": {
+            "type": "boolean",
+            "description": "If false, then interim transcript result"
+          }
+        },
+        "required": ["text", "rawTranscriptText", "start", "end", "isFinal"]
+      },
+      "TranscribeCommandData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "To identify the command when it gets detected and returned over the WebSocket"
+          },
+          "variables": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The variables identified",
+            "nullable": true
+          },
+          "rawTranscriptText": {
+            "type": "string",
+            "description": "The raw transcript without spoken punctuation applied and without command phrases removed"
+          },
+          "start": {
+            "type": "number",
+            "description": "Start time of the transcript segment in seconds"
+          },
+          "end": {
+            "type": "number",
+            "description": "End time of the transcript segment in seconds"
+          }
+        },
+        "required": ["id", "rawTranscriptText", "start", "end"]
+      },
+      "TranscribeTranscriptMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "transcript"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TranscribeTranscriptData"
+          }
+        },
+        "required": ["type", "data"]
+      },
+      "TranscribeCommandMessage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "command"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TranscribeCommandData"
+          }
+        },
+        "required": ["type", "data"]
+      }
+    }
+  }
+} 

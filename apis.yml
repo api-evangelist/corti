@@ -1,28 +1,189 @@
 aid: corti
 name: Corti
-description: 'Corti is a company surfaced as a portfolio company of atomico, prosus-ventures and added
-  to the API Evangelist network as a stub for enrichment. Sector: health. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Corti is a healthcare AI platform for developers, offering a full stack of
+  clinical AI building blocks over a single OAuth 2.0-secured API: real-time
+  speech-to-text (dictation and ambient documentation over WebSocket), clinical
+  text generation and structured/guided documents, AI-assisted medical coding
+  (ICD-10, CPT, OPCS-4, CCAM, OPS and more), fact extraction, an Agentic
+  Framework (A2A protocol with prebuilt medical experts and MCP integration),
+  OpenAI/Anthropic-compatible EU-hosted Corti Models, and an embeddable Corti
+  Assistant clinical scribe. The platform is EU/US data-resident and carries
+  extensive healthcare compliance (SOC 2, ISO 27001/13485/42001, HIPAA, GDPR,
+  EU AI Act, FedRAMP, NHS DTAC/DCB0129). Backed by Atomico and Prosus Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/corti/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://mintlify.s3.us-west-1.amazonaws.com/corti/logo/embedded-assistant.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - atomico
 - prosus-ventures
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
 - Health
-apis: []
+- Healthcare
+- Artificial Intelligence
+- Speech to Text
+- Medical Coding
+- Clinical Documentation
+- Agents
+- Machine Learning
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: corti:corti-speech-to-text-api
+  name: Corti Speech to Text API
+  tags:
+  - Speech to Text
+  - Transcription
+  humanURL: https://docs.corti.ai/stt/overview
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/stt/overview}
+  - {type: APIReference, url: https://docs.corti.ai/api-reference/transcribe}
+  - {type: AsyncAPI, url: asyncapi/corti-transcribe-asyncapi.json}
+  description: Real-time, bidirectional stateless dictation over WebSocket, returning live transcripts and detected commands.
+- aid: corti:corti-ambient-documentation-api
+  name: Corti Ambient Documentation API
+  tags:
+  - Ambient AI
+  - Clinical Documentation
+  humanURL: https://docs.corti.ai/assistant/welcome
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/assistant/welcome}
+  - {type: AsyncAPI, url: asyncapi/corti-stream-asyncapi.json}
+  description: Real-time ambient documentation over WebSocket, returning live transcripts and extracted clinical facts.
+- aid: corti:corti-text-generation-api
+  name: Corti Text Generation API
+  tags:
+  - Text Generation
+  - Documents
+  humanURL: https://docs.corti.ai/textgen/overview
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/textgen/overview}
+  - {type: APIReference, url: https://docs.corti.ai/api-reference/documents-classic/generate-document}
+  description: Generate clinical documents and structured/guided documents from interactions and templates.
+- aid: corti:corti-medical-coding-api
+  name: Corti Medical Coding API
+  tags:
+  - Medical Coding
+  - ICD-10
+  - CPT
+  humanURL: https://docs.corti.ai/coding/overview
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/coding/overview}
+  - {type: APIReference, url: https://docs.corti.ai/api-reference/codes/predict-codes}
+  description: Stateless prediction of ICD-10-CM/PCS, ICD-10 (international/UK/FR/GM), OPCS-4, OPS, CCAM and CPT codes from clinical text.
+- aid: corti:corti-agentic-framework-api
+  name: Corti Agentic Framework API
+  tags:
+  - Agents
+  - A2A
+  humanURL: https://docs.corti.ai/agentic/overview
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/agentic/overview}
+  - {type: APIReference, url: https://docs.corti.ai/agentic/agents/create-agent}
+  description: Build and orchestrate healthcare agents over the A2A protocol with prebuilt medical experts and MCP tool integration.
+- aid: corti:corti-models-api
+  name: Corti Models API
+  tags:
+  - LLM
+  - Models
+  humanURL: https://docs.corti.ai/models/welcome
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/models/welcome}
+  - {type: APIReference, url: https://docs.corti.ai/api-reference/corti-models/chat/create-chat-completion}
+  description: OpenAI-compatible (Chat Completions, Responses, Completions, Embeddings) and Anthropic-compatible (Messages) frontier models hosted on EU infrastructure.
+- aid: corti:corti-administration-api
+  name: Corti Administration API
+  tags:
+  - Administration
+  - Account Management
+  humanURL: https://docs.corti.ai/about/admin-api
+  baseURL: https://api.eu.corti.app
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/about/admin-api}
+  - {type: APIReference, url: https://docs.corti.ai/api-reference/admin/auth/authenticate-user-and-get-access-token}
+  description: Programmatically manage customers, users, quotas and usage for a Corti Console project.
+- aid: corti:corti-assistant-embedded
+  name: Corti Assistant Embedded
+  tags:
+  - Embedded
+  - Web Components
+  humanURL: https://docs.corti.ai/assistant/welcome
+  baseURL: https://api.eu.corti.app/v2
+  properties:
+  - {type: Documentation, url: https://docs.corti.ai/assistant/welcome}
+  - {type: Components, url: components/corti-components.yml}
+  description: Embeddable ambient clinical scribe via Web Component, PostMessage (iframe/WebView) and Window APIs.
 common:
-- type: Website
-  url: https://www.corti.ai
+- type: DomainSecurity
+  url: security/corti-domain-security.yml
+- {type: Website, url: https://www.corti.ai}
+- {type: DeveloperPortal, url: https://docs.corti.ai}
+- {type: Documentation, url: https://docs.corti.ai/get_started/welcome}
+- {type: APIReference, url: https://docs.corti.ai/api-reference}
+- {type: GettingStarted, url: https://docs.corti.ai/get_started/welcome}
+- {type: Support, url: https://help.corti.ai/en/}
+- {type: Blog, url: https://corti.ai/stories}
+- {type: GitHubOrganization, url: https://github.com/corticph}
+- {type: Roadmap, url: https://docs.corti.ai/about/roadmap}
+- {type: Pricing, url: https://corti.ai/pricing}
+- {type: SignUp, url: https://console.corti.app/signup}
+- {type: Login, url: https://console.corti.app/auth}
+- {type: TermsOfService, url: https://corti.ai/legal/terms-and-conditions}
+- {type: PrivacyPolicy, url: https://corti.ai/legal/privacy-policy}
+- {type: StatusPage, url: https://status.corti.ai}
+- {type: Deprecation, url: https://docs.corti.ai/release-notes/change-policy/}
+- {type: Compliance, url: https://corti.ai/safety}
+- {type: LLMsTxt, url: llms/corti-llms.txt}
+- {type: WellKnown, url: well-known/corti-well-known.yml}
+- {type: Authentication, url: authentication/corti-authentication.yml}
+- {type: OAuthScopes, url: scopes/corti-scopes.yml}
+- {type: Packages, url: packages/corti-packages.yml}
+- {type: SDKs, url: packages/corti-packages.yml}
+- {type: Conformance, url: conformance/corti-conformance.yml}
+- {type: TrustCenter, url: security/corti-trust-center.yml}
+- {type: Lifecycle, url: lifecycle/corti-lifecycle.yml}
+- {type: ChangeLog, url: changelog/corti-changelog.yml}
+- {type: Conventions, url: conventions/corti-conventions.yml}
+- {type: Components, url: components/corti-components.yml}
+- {type: Sandbox, url: sandbox/corti-sandbox.yml}
+- {type: DataModel, url: data-model/corti-data-model.yml}
+- {type: ErrorCatalog, url: errors/corti-error-codes.yml}
+- {type: MCPServer, url: mcp/corti-mcp.yml}
+- {type: AsyncAPI, url: asyncapi/corti-transcribe-asyncapi.json}
+- {type: AsyncAPI, url: asyncapi/corti-stream-asyncapi.json}
+- {type: Webhooks, url: https://docs.corti.ai/assistant/events}
+- {type: AgentSkill, url: skills/corti-realtime-transcription.md, name: Corti real-time speech-to-text}
+- {type: AgentSkill, url: skills/corti-ambient-documentation.md, name: Corti ambient documentation}
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

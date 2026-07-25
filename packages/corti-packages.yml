@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/sdk/js-sdk
+description: >-
+  First-party Corti client libraries. The JavaScript/TypeScript SDK is published
+  to npm as @corti/sdk (Fern-generated, includes WebSocket clients for the
+  real-time transcribe/stream APIs). A C# .NET SDK and a Vercel AI SDK adapter are
+  also published/maintained by Corti (org: corticph on GitHub).
+packages:
+- language: javascript
+  registry: npm
+  name: "@corti/sdk"
+  url: https://www.npmjs.com/package/@corti/sdk
+  install: npm install @corti/sdk
+  repo: https://github.com/corticph/corti-sdk-javascript
+  official: true
+  notes: Fern-generated TypeScript SDK with WebSocket clients for transcribe/stream.
+- language: javascript
+  registry: npm
+  name: "@corti/ai-sdk-adapter"
+  url: https://www.npmjs.com/package/@corti/ai-sdk-adapter
+  install: npm install @corti/ai-sdk-adapter
+  repo: https://github.com/corticph/ai-sdk-adapter
+  official: true
+  notes: Adapter integrating Corti A2A agents with the Vercel AI SDK.
+- language: csharp
+  registry: nuget
+  name: Corti
+  url: https://github.com/corticph/corti-sdk-dotnet
+  install: dotnet add package Corti
+  repo: https://github.com/corticph/corti-sdk-dotnet
+  official: true
+  notes: C# / .NET SDK (see repo for the exact NuGet package id).

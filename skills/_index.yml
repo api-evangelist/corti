@@ -1,0 +1,17 @@
+generated: '2026-07-18'
+method: generated
+source: asyncapi/corti-transcribe-asyncapi.json, asyncapi/corti-stream-asyncapi.json
+description: >-
+  Packaged Agent Skills for Corti's real-time APIs, grounded in verified AsyncAPI
+  operationIds. REST-only flows (medical coding, document generation) are not
+  packaged as skills here because Corti's OpenAPI is served only via the Mintlify
+  SPA and its operationIds could not be verified without fabrication.
+skills:
+- file: corti-realtime-transcription.md
+  name: Corti real-time speech-to-text (transcribe)
+  api: asyncapi/corti-transcribe-asyncapi.json
+  operations: [sendConfiguration, sendAudio, sendEnd, receiveConfigStatus, receiveTranscript, receiveCommand, receiveUsage, receiveEnded, receiveError]
+- file: corti-ambient-documentation.md
+  name: Corti ambient documentation (stream)
+  api: asyncapi/corti-stream-asyncapi.json
+  operations: [sendConfiguration, sendAudio, sendEnd, receiveConfigStatus, receiveTranscript, receiveFacts, receiveUsage, receiveEnded, receiveError]

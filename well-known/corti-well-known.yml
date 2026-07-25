@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+description: >-
+  Well-known discovery documents probed across Corti's auth and API hosts. The
+  Corti Auth server (Keycloak) publishes a full OpenID Connect discovery document
+  per realm; the API and marketing hosts expose no /.well-known/security.txt.
+hosts:
+- host: https://auth.eu.corti.app
+  documents:
+  - {path: /realms/base/.well-known/openid-configuration, status: 200, file: corti-openid-configuration.json}
+- host: https://api.eu.corti.app
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+- host: https://www.corti.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://corti.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}

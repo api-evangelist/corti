@@ -1,0 +1,23 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/assistant/welcome
+description: >-
+  Corti ships embeddable, client-side UI components centered on the Corti
+  Assistant (ambient clinical scribe) and speech capture. The Assistant can be
+  embedded via a modern Web Component, an iframe/WebView PostMessage API, or a
+  Window API, and Corti publishes open-source speech web components.
+families:
+- name: Corti Assistant Embedded
+  description: Embed the ambient clinical documentation assistant into an app or EHR.
+  surfaces:
+  - {name: Web Component API, url: https://docs.corti.ai/assistant/web-component-api}
+  - {name: PostMessage API (iframe/WebView), url: https://docs.corti.ai/assistant/postmessage-api}
+  - {name: Window API, url: https://docs.corti.ai/assistant/window-api}
+  auth: https://docs.corti.ai/assistant/authentication
+  events_catalog: https://docs.corti.ai/assistant/events
+- name: Speech Web Components
+  description: Open-source web components for speech capture/transcription UIs.
+  repo: https://github.com/corticph/speech-web-components
+- name: Embedded Web
+  description: Component for embedding Corti Assistant on the web.
+  repo: https://github.com/corticph/embedded-web

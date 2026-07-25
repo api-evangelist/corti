@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: https://corti.ai/safety
+description: >-
+  Corti publishes a Drata-hosted trust center and a Safety & Compliance page
+  enumerating its healthcare-grade certifications and data-residency guarantees.
+url: https://trust.corti.ai
+drata_trust_center: https://app.drata.com/trust/9cc6d701-0c38-11ee-865f-029d78a187d9
+safety_page: https://corti.ai/safety
+knowledge_base: https://help.corti.app/en/collections/11859656-security-and-governance
+certifications:
+- SOC 2
+- ISO 27001
+- ISO 27017
+- ISO 27018
+- ISO 13485
+- ISO 42001
+- ISO 14971
+- ISO 62366
+- HIPAA
+- GDPR
+- EU AI Act
+- DORA
+- NIS2
+- NHS DSPT
+- NHS DTAC
+- NHS DCB0129
+- FedRAMP
+- Cyber Essentials Plus
+- ISAE 3000
+- BSI C5
+- CE Mark
+data_residency: EU or US data hosting with no cross-border transfer
+evidence:
+- {source: https://corti.ai/safety, keywords: [soc 2, iso 27001, hipaa, gdpr, trust center]}
+- {source: https://trust.corti.ai, kind: drata-trust-center}

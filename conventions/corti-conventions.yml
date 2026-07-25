@@ -1,0 +1,41 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai
+description: >-
+  Cross-cutting request/response semantics for the Corti API, captured from the
+  authentication, errors, and API-reference documentation. No documented
+  idempotency-key mechanism was found, so no Idempotency pointer is emitted.
+authentication:
+  style: oauth2-client-credentials
+  header: 'Authorization: Bearer <jwt>'
+  additional_required_header: 'Tenant-Name: <tenant>'
+  token_ttl_seconds: 300
+  ref: authentication/corti-authentication.yml
+versioning:
+  style: uri-path
+  current: v2
+  base_url: https://api.{environment}.corti.app/v2
+  environments: [eu, us, beta-eu]
+tenancy:
+  header: Tenant-Name
+  default: base
+  note: Enterprise setups use a custom tenant/realm name.
+rate_limiting:
+  signal: HTTP 429 Too Many Requests
+  client_behavior: SDKs auto-retry with exponential backoff (default maxRetries 2, overridable per request)
+  ref: errors/corti-error-codes.yml
+error_envelope:
+  rest: JSON body; 401 details in WWW-Authenticate header
+  websocket: CONFIG_* status code with reason field
+  ref: errors/corti-error-codes.yml
+idempotency:
+  supported: false
+  note: No idempotency-key header documented as of capture.
+realtime:
+  protocol: WebSocket (wss)
+  specs: [asyncapi/corti-transcribe-asyncapi.json, asyncapi/corti-stream-asyncapi.json]
+  note: Bidirectional streaming for stateless dictation (transcribe) and ambient documentation (stream).
+model_compatibility:
+  openai: Chat Completions, Responses, Completions, Embeddings, Models endpoints
+  anthropic: Messages endpoint
+  note: Corti Models are OpenAI/Anthropic-compatible, EU-hosted.

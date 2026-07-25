@@ -1,0 +1,82 @@
+generated: '2026-07-18'
+method: searched
+source: https://auth.eu.corti.app/realms/base/.well-known/openid-configuration
+docs: https://docs.corti.ai/authentication/overview
+description: >-
+  OAuth 2.0 scopes harvested from Corti's live Keycloak OpenID Connect discovery
+  document (base realm). Corti issues short-lived (5 minute) access tokens via the
+  client_credentials grant; streaming clients may request limited-scope tokens
+  (e.g. "openid transcribe" or "openid streams"). Standard OIDC scopes (openid,
+  profile, email, phone, address, offline_access, roles, groups) are omitted from
+  the per-scope list below and noted under oidc_standard_scopes.
+schemes:
+- name: CortiAuth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.eu.corti.app/realms/base/protocol/openid-connect/token
+  - flow: authorizationCode
+    authorizationUrl: https://auth.eu.corti.app/realms/base/protocol/openid-connect/auth
+    tokenUrl: https://auth.eu.corti.app/realms/base/protocol/openid-connect/token
+  environments:
+  - eu: https://auth.eu.corti.app
+  - us: https://auth.us.corti.app
+oidc_standard_scopes:
+- openid
+- profile
+- email
+- phone
+- address
+- offline_access
+- roles
+- groups
+- web-origins
+- microprofile-jwt
+- acr
+- basic
+- service_account
+scopes:
+- {scope: 'interactions:read', description: Read interactions}
+- {scope: 'interactions:readall', description: Read all interactions in the tenant}
+- {scope: 'interactions:write', description: Create interactions}
+- {scope: 'interactions:update', description: Update interactions}
+- {scope: 'interactions:delete', description: Delete interactions}
+- {scope: 'recordings:read', description: Read recordings}
+- {scope: 'recordings:write', description: Upload/create recordings}
+- {scope: 'recordings:delete', description: Delete recordings}
+- {scope: 'transcripts:read', description: Read transcripts}
+- {scope: 'transcripts:write', description: Create/update transcripts}
+- {scope: 'transcripts:delete', description: Delete transcripts}
+- {scope: 'documents:read', description: Read generated documents}
+- {scope: 'documents:write', description: Generate documents}
+- {scope: 'documents:update', description: Update documents}
+- {scope: 'documents:delete', description: Delete documents}
+- {scope: 'guided_documents:read', description: Read guided (structured) documents}
+- {scope: 'guided_documents:write', description: Generate guided documents}
+- {scope: 'guided_documents:update', description: Update guided documents}
+- {scope: 'guided_documents:delete', description: Delete guided documents}
+- {scope: 'guided_templates_sections:read', description: Read guided template sections}
+- {scope: 'guided_templates_sections:write', description: Create guided template sections}
+- {scope: 'guided_templates_sections:update', description: Update guided template sections}
+- {scope: 'guided_templates_sections:delete', description: Delete guided template sections}
+- {scope: 'templates:read', description: Read document templates}
+- {scope: 'codes:read', description: Read predicted medical codes}
+- {scope: 'codes:write', description: Predict/generate medical codes}
+- {scope: 'codes:update', description: Update/select medical codes}
+- {scope: 'facts:read', description: Read facts extracted from interactions}
+- {scope: 'facts:write', description: Add/extract facts}
+- {scope: 'facts:update', description: Update facts}
+- {scope: 'transcribe', description: Access the real-time stateless speech-to-text (transcribe) WebSocket}
+- {scope: 'streams', description: Access the real-time ambient documentation (stream) WebSocket}
+- {scope: 'tools:write', description: Invoke stateless tools (e.g. coding, fact extraction)}
+- {scope: 'anonymize:write', description: Anonymize/de-identify content}
+- {scope: 'languages:read', description: List supported languages}
+- {scope: 'admin:read', description: Administration API read access}
+- {scope: 'admin:write', description: Administration API write access}
+- {scope: 'admin-templates:read', description: Read admin-managed templates}
+- {scope: 'admin-logging:write', description: Manage admin logging configuration}
+- {scope: 'admin-retention:write', description: Manage data retention}
+- {scope: 'admin-retention-policy:write', description: Manage retention policy}
+- {scope: 'admin-caching:write', description: Manage caching configuration}
+- {scope: 'admin-db:write', description: Manage database configuration}
+- {scope: 'admin-triggers:write', description: Manage admin triggers}

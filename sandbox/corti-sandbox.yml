@@ -1,0 +1,19 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.corti.ai/get_started/welcome
+description: >-
+  Corti developers sign up in the Corti Console to obtain OAuth client
+  credentials and trial credits, then build against environment-scoped API hosts.
+  There is a beta-eu environment for pre-release testing alongside the production
+  eu and us environments. No test cards are applicable (not a payments API).
+console:
+  signup: https://console.corti.app/signup
+  signin: https://console.corti.app/auth
+  trial_credits: "$50 trial credits on account creation (startups program offers up to $5,000 in API credits)"
+environments:
+- {name: eu, api_base: https://api.eu.corti.app/v2, auth: https://auth.eu.corti.app, type: production}
+- {name: us, api_base: https://api.us.corti.app/v2, auth: https://auth.us.corti.app, type: production}
+- {name: beta-eu, api_base: https://api.beta-eu.corti.app/v2, auth: https://auth.beta-eu.corti.app, type: beta/testing}
+notes:
+- Default tenant/realm is "base"; the Tenant-Name header selects the tenant context.
+- Limited-scope streaming tokens (scope "openid transcribe" / "openid streams") can be minted for browser testing of the real-time APIs.
