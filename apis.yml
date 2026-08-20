@@ -40,6 +40,16 @@ tags:
 - Health
 - Healthcare
 - Artificial Intelligence
+- Speech-to-Text
+- Medical Coding
+- Clinical Documentation
+- Agents
+- Machine-Learning
+tags_raw:
+- Company
+- Health
+- Healthcare
+- Artificial Intelligence
 - Speech to Text
 - Medical Coding
 - Clinical Documentation
@@ -54,6 +64,9 @@ apis:
 - aid: corti:corti-speech-to-text-api
   name: Corti Speech to Text API
   tags:
+  - Speech-to-Text
+  - Transcription
+  tags_raw:
   - Speech to Text
   - Transcription
   humanURL: https://docs.corti.ai/stt/overview
