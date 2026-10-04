@@ -1,21 +1,19 @@
-# Kin Score artifact — corti — 2026-08-27T140727
+# Kin Score artifact — corti — 2026-09-24T161608
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: corti
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
-  composite: 62.4
+  schema_version: 0.22.0
+  scored_at: '2026-09-24'
+  run_ts: 2026-09-24T161608
+  composite: 61.0
   band: strong
   facets:
-    discoverability: 92.6
-    contract_quality: 42.6
-    governance: 18.2
+    discoverability: 81.5
+    contract_quality: 41.7
+    contract_governance: 18.2
     operational_transparency: 57.9
     developer_ergonomics: 73.2
-    commercial_clarity: 60.5
-    contract_governance: 18.2
     access_clarity: 60.5
   agent_readiness:
     score: 32.9
@@ -46,14 +44,6 @@ kin_score:
     regime_id: health
     score: 58.8
     matched_via: tags
-  needs_work:
-    owner: catalog
-    reasons:
-    - owner: catalog
-      reason: no_resolvable_host
-    detected: '2026-08-18'
-    note: Recorded so this provider's gaps can be attributed. Does not affect the
-      composite.
   provenance:
     mcp: derived
     skills: derived
